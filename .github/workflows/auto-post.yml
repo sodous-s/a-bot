@@ -1,16 +1,18 @@
 name: auto-post
 on:
   schedule:
-    - cron: "*/10 * * * *"    # 每5分钟触发一次
-  workflow_dispatch:          # 保留手动触发
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
 
 jobs:
   post:
-    runs-on: ubuntu-latest
-    timeout-minutes: 3        # 发一条用不了多久，3分钟够
+    runs-on: ubuntu-24.04    # ← 显式锁定 24.04，避开 Ubuntu 26 的坑
+    timeout-minutes: 3
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5    # ← 升级到 v5，支持 Node 24
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v6    # ← 升级到 v6，支持 Node 24
         with:
           python-version: "3.11"
       - run: pip install -r requirements.txt
