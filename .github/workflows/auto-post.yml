@@ -6,7 +6,7 @@ on:
 
 jobs:
   post:
-    runs-on: ubuntu-24.04    # ← 显式锁定 24.04，避开 Ubuntu 26 的坑
+    runs-on: ubuntu-24.04
     timeout-minutes: 3
     steps:
       - uses: actions/checkout@v5    # ← 升级到 v5，支持 Node 24
